@@ -13,7 +13,14 @@ class BytebankApp extends StatelessWidget {
   }
 }
 
-class FormularioTransferencia extends StatelessWidget {
+class FormularioTransferencia extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return FormularioTransferenciaState();
+  }
+}
+
+class FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
   final TextEditingController _controladorCampoValor = TextEditingController();
@@ -24,24 +31,26 @@ class FormularioTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: Text('Criando Transferências'),
       ),
-      body: Column(
-        children: <Widget>[
-          Editor(
-            controlador: _controladorCampoNumeroConta,
-            dica: '0000',
-            rotulo: 'Número da Conta',
-          ),
-          Editor(
-            controlador: _controladorCampoValor,
-            dica: '0.00',
-            rotulo: 'Valor',
-            icone: Icons.monetization_on,
-          ),
-          RaisedButton(
-            onPressed: () => _criaTransferencia(context),
-            child: Text('Confirmar'),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Editor(
+              controlador: _controladorCampoNumeroConta,
+              dica: '0000',
+              rotulo: 'Número da Conta',
+            ),
+            Editor(
+              controlador: _controladorCampoValor,
+              dica: '0.00',
+              rotulo: 'Valor',
+              icone: Icons.monetization_on,
+            ),
+            RaisedButton(
+              onPressed: () => _criaTransferencia(context),
+              child: Text('Confirmar'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -98,7 +107,6 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
       body: ListView.builder(
         itemCount: widget._transferencias.length,
         itemBuilder: (context, indice) {
-          debugPrint('teste teste');
           final transferencia = widget._transferencias[indice];
           return ItemTransferencia(transferencia);
         },
